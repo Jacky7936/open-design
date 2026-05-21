@@ -1,15 +1,44 @@
 import { test } from 'vitest';
+import { agentCapabilities } from '../../src/runtimes/capabilities.js';
 import {
-  assert, claude, codex, copilot, cursorAgent, deepseek, devin, detectAgents, gemini, join, kilo, kiro, mkdtempSync, opencode, pi, qoder, qwen, rmSync, spawnEnvForAgent, tmpdir, vibe, writeFileSync, chmodSync,
+  assert, claude, codex, copilot, cursorAgent, deepseek, devin, detectAgents, gemini, grokBuild, join, kilo, kiro, mkdtempSync, opencode, pi, qoder, qwen, rmSync, spawnEnvForAgent, tmpdir, vibe, writeFileSync, chmodSync,
 } from './helpers/test-helpers.js';
 import type { TestAgentDef } from './helpers/test-helpers.js';
 
-test('cursor-agent args deliver prompts via stdin without passing a literal dash prompt', () => {
+test('cursor-agent args pass the prompt positionally and omit flags absent from --help', () => {
+  agentCapabilities.delete('cursor-agent');
+  const prompt = 'design a dashboard';
   const args = cursorAgent.buildArgs(
-    '',
+    prompt,
     [],
     [],
     {},
+    { cwd: '/tmp/od-project' },
+  );
+
+  assert.equal(cursorAgent.promptViaStdin, undefined);
+  assert.equal(args.includes('-'), false);
+  assert.deepEqual(args, [
+    '--print',
+    '--output-format',
+    'stream-json',
+    '--force',
+    prompt,
+  ]);
+});
+
+test('cursor-agent args retain legacy flags when --help still advertises them', () => {
+  agentCapabilities.set('cursor-agent', {
+    partialOutput: true,
+    trust: true,
+    workspace: true,
+  });
+  const prompt = 'design a dashboard';
+  const args = cursorAgent.buildArgs(
+    prompt,
+    [],
+    [],
+    { model: 'sonnet-4' },
     { cwd: '/tmp/od-project' },
   );
 
@@ -17,12 +46,16 @@ test('cursor-agent args deliver prompts via stdin without passing a literal dash
     '--print',
     '--output-format',
     'stream-json',
-    '--stream-partial-output',
     '--force',
+    '--stream-partial-output',
     '--trust',
     '--workspace',
     '/tmp/od-project',
+    '--model',
+    'sonnet-4',
+    prompt,
   ]);
+  agentCapabilities.delete('cursor-agent');
 });
 
 test('opencode args deliver prompts via stdin without passing a literal dash prompt', () => {
@@ -630,6 +663,29 @@ test('claude buildArgs drops empty / null dirs but keeps valid ones (issue #430 
   assert.equal(args.includes(undefined as unknown as string), false);
 });
 
+test('grok-build passes the prompt as the -p/--single value (no stdin sentinel)', () => {
+  const prompt = 'Reply with only: ok';
+  const baseArgs = grokBuild.buildArgs(prompt, [], [], {});
+  assert.equal(grokBuild.promptViaStdin, undefined);
+  assert.deepEqual(baseArgs, ['-p', prompt]);
+
+  const withModel = grokBuild.buildArgs(
+    prompt,
+    [],
+    [],
+    { model: 'grok-4.3' },
+  );
+  assert.deepEqual(withModel, ['-p', prompt, '--model', 'grok-4.3']);
+
+  const withEffort = grokBuild.buildArgs(
+    prompt,
+    [],
+    [],
+    { reasoning: 'high' },
+  );
+  assert.deepEqual(withEffort, ['-p', prompt, '--effort', 'high']);
+});
+
 test('claude helpArgs probes the -p subcommand where --add-dir lives (issue #430 root cause)', () => {
   assert.deepEqual(
     claude.helpArgs,
@@ -652,7 +708,6 @@ test('promptInputFormat is a string property (or undefined) on every promptViaSt
     { name: 'claude', def: claude, expected: 'stream-json' },
     { name: 'codex', def: codex, expected: undefined },
     { name: 'copilot', def: copilot, expected: undefined },
-    { name: 'cursor-agent', def: cursorAgent, expected: undefined },
     { name: 'gemini', def: gemini, expected: undefined },
     { name: 'opencode', def: opencode, expected: undefined },
     { name: 'pi', def: pi, expected: undefined },

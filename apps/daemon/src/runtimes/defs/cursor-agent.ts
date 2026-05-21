@@ -1,3 +1,4 @@
+import { agentCapabilities } from '../capabilities.js';
 import { DEFAULT_MODEL_OPTION } from './shared.js';
 import type { RuntimeAgentDef } from '../types.js';
 import type { RuntimeModelOption } from '../types.js';
@@ -32,6 +33,15 @@ export const cursorAgentDef = {
     name: 'Cursor Agent',
     bin: 'cursor-agent',
     versionArgs: ['--version'],
+    helpArgs: ['--help'],
+    capabilityFlags: {
+      // Older Cursor Agent builds advertised these under global `--help`.
+      // Current releases (2025.09+) removed them; probe once at detection
+      // so buildArgs stays compatible with both shapes.
+      '--stream-partial-output': 'partialOutput',
+      '--trust': 'trust',
+      '--workspace': 'workspace',
+    },
     // `cursor-agent models` prints account-bound model ids per line. When
     // the user isn't authed it prints "No models available for this
     // account." — that's not a model list, so we detect it and fall back.
@@ -51,35 +61,36 @@ export const cursorAgentDef = {
       { id: 'sonnet-4-thinking', label: 'sonnet-4-thinking' },
       { id: 'gpt-5', label: 'gpt-5' },
     ],
-    // Cursor Agent does not use `-` as a "read prompt from stdin" sentinel.
-    // Passing it makes the CLI treat the dash as the literal user prompt,
-    // which then surfaces as "your message only contains '-'". Keep stdin
-    // piped for prompt delivery, but do not append a fake prompt arg.
+    // Headless `--print` mode takes the user prompt as a positional argument.
+    // Do not pass `-` (literal dash prompt) or rely on stdin — current builds
+    // fall back to the interactive sign-in TUI when no positional prompt is
+    // supplied. Workspace is carried by the spawn `cwd`; only older CLIs that
+    // still advertise `--workspace` get that flag.
     buildArgs: (
-      _prompt,
+      prompt,
       _imagePaths,
       _extra,
       options = {},
       runtimeContext = {},
     ) => {
-      const args = [];
-      args.push(
-        '--print',
-        '--output-format',
-        'stream-json',
-        '--stream-partial-output',
-        '--force',
-        '--trust',
-      );
-      if (runtimeContext.cwd) {
+      const caps = agentCapabilities.get('cursor-agent') || {};
+      const args = ['--print', '--output-format', 'stream-json', '--force'];
+      if (caps.partialOutput) {
+        args.push('--stream-partial-output');
+      }
+      if (caps.trust) {
+        args.push('--trust');
+      }
+      if (caps.workspace && runtimeContext.cwd) {
         args.push('--workspace', runtimeContext.cwd);
       }
       if (options.model && options.model !== 'default') {
         args.push('--model', options.model);
       }
+      args.push(prompt);
       return args;
     },
-    promptViaStdin: true,
+    maxPromptArgBytes: 30_000,
     streamFormat: 'json-event-stream',
     eventParser: 'cursor-agent',
 } satisfies RuntimeAgentDef;

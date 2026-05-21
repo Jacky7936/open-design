@@ -533,6 +533,7 @@ test('detectAgents treats Cursor Agent Not logged in status as missing auth', as
 test('Cursor auth matcher covers current unauthenticated Cursor error records', () => {
   assert.equal(isCursorAuthFailureText('ConnectError: [unauthenticated]'), true);
   assert.equal(isCursorAuthFailureText('Error: [unauthenticated] Error'), true);
+  assert.equal(isCursorAuthFailureText('Press any key to sign in...'), true);
 });
 
 // Windows env-var names are case-insensitive at the kernel level, but

@@ -12,20 +12,20 @@ import type { RuntimeAgentDef } from '../types.js';
 // --oauth` and the resulting `~/.grok/auth.json` is what every spawned
 // invocation reads.
 //
-// Headless mode follows Claude Code's pattern (`-p <PROMPT>` for single-
-// turn, `--output-format streaming-json` for structured streaming), but
-// the streaming-json schema is xAI-specific and we do not yet have a
-// daemon-side parser for it. To ship the runtime now and let users at
-// least chat with grok inside OD, this defaults to `plain` streamFormat
-// (single-turn text reply, no tool_use streaming). Upgrading to a
-// `grok-stream-json` event parser is follow-up work once the format is
-// stable enough to lock in.
+// Headless mode uses `-p/--single <PROMPT>` for single-turn output. Unlike
+// Claude Code, Grok Build does not read a prompt from stdin when `-p` is
+// given without a value — the CLI exits 2 with "a value is required for
+// '--single <PROMPT>'". `--output-format streaming-json` exists but the
+// schema is xAI-specific and we do not yet have a daemon-side parser for
+// it. To ship the runtime now and let users at least chat with grok inside
+// OD, this defaults to `plain` streamFormat (single-turn text reply, no
+// tool_use streaming). Upgrading to a `grok-stream-json` event parser is
+// follow-up work once the format is stable enough to lock in.
 export const grokBuildAgentDef = {
   id: 'grok-build',
   name: 'Grok Build',
   bin: 'grok',
   versionArgs: ['--version'],
-  helpArgs: ['-p', '--help'],
   // `grok models` prints one model id per line, plus a `Default model:`
   // header line that parseLineSeparatedModels strips because it isn't
   // an id token. Falls back to the static list below when probing fails
@@ -49,11 +49,13 @@ export const grokBuildAgentDef = {
       label: 'grok-4.20-multi-agent (xAI · orchestration)',
     },
   ],
-  // Prompt delivered via stdin so Windows `spawn ENAMETOOLONG` and Linux
-  // `spawn E2BIG` can't truncate large composed prompts. `grok -p` with
-  // no positional argument reads from piped stdin.
-  buildArgs: (_prompt, _imagePaths, _extra = [], options = {}) => {
-    const args = ['-p'];
+  // Grok Build requires the prompt as the `-p/--single` value (or via
+  // `--prompt-file`). It does not accept a bare `-p` with stdin like
+  // Claude Code. Guard oversized composed prompts before spawn — same
+  // shape as DeepSeek TUI until Grok adds a stdin sentinel or we teach
+  // the spawn path to write `--prompt-file` attachments.
+  buildArgs: (prompt, _imagePaths, _extra = [], options = {}) => {
+    const args = ['-p', prompt];
     if (options.model && options.model !== DEFAULT_MODEL_OPTION.id) {
       args.push('--model', options.model);
     }
@@ -62,6 +64,7 @@ export const grokBuildAgentDef = {
     }
     return args;
   },
+  maxPromptArgBytes: 30_000,
   reasoningOptions: [
     { id: 'low', label: 'low' },
     { id: 'medium', label: 'medium' },
@@ -69,7 +72,6 @@ export const grokBuildAgentDef = {
     { id: 'xhigh', label: 'xhigh' },
     { id: 'max', label: 'max' },
   ],
-  promptViaStdin: true,
   streamFormat: 'plain',
   installUrl: 'https://x.ai/cli',
   docsUrl: 'https://x.ai/cli',
