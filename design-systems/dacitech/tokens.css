@@ -1,0 +1,243 @@
+/* ─────────────────────────────────────────────────────────────────────────
+ * design-systems/dacitech/tokens.css
+ *
+ * Structured token bindings for "Design System Inspired by 大慈資訊 (dacitech)".
+ * Humanistic IT studio aesthetic: warm parchment canvas, pine-olive +
+ * earthen-tan brand duo, exclusive warm-toned neutrals, dual-script
+ * type system (Marcellus + Noto Serif TC headlines, Montserrat +
+ * Noto Sans TC body).
+ *
+ * Key brand decisions encoded here:
+ *   - Parchment (#f4f0ec) as page canvas — never pure white
+ *   - Card Cream (#f2f1ee) for elevated surfaces, Earthen Tan (#e7e0d7)
+ *     for warm interactive backgrounds
+ *   - Pine Olive (#364118) as the single brand accent — earthy, un-tech
+ *   - Earthen Tan (#96795a) as the brand companion — the loam to olive's forest
+ *   - All grays carry a yellow-brown undertone — no cool blue-grays
+ *   - Serif for brand expression (Marcellus + Noto Serif TC),
+ *     sans for UI (Montserrat + Noto Sans TC)
+ *   - Ring-based depth (1px N-700) instead of traditional drop shadows
+ *   - Generous body line-height (1.65–1.70) for a literary reading experience
+ *   - Focus glow is olive (S1-700 + rgba(55,66,24,0.20)) — never cool blue
+ *
+ * Full 9-step graded scales (P/S1/S2/N/T) and the bilingual H1–H5 / B1–B5
+ * hierarchy live as C-extension tokens at the bottom of :root.
+ * ─────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ─── Surface (3 levels) ─────────────────────────────────────────
+   * Parchment (bg) → Card Cream (surface) → Cream Tan (surface-warm).
+   * Never use pure white as a page background — the warm cream IS
+   * the dacitech personality. */
+  --bg: #f4f0ec;             /* Parchment — page canvas (P-100) */
+  --surface: #f2f1ee;        /* Card Cream — elevated container background (N-300) */
+  --surface-warm: #e7e0d7;   /* Cream Tan — warm interactive surfaces, prominent rows (P-200) */
+
+  /* ─── Foreground ramp (4 levels) ────────────────────────────────
+   * Every gray carries a yellow-brown undertone. No cool blue-grays.
+   * T-900 is the warmest "black" in any major tech brand. */
+  --fg: #231815;             /* Near Black — primary text (T-900) */
+  --fg-2: #454241;           /* Dark Warm — emphasized secondary text, link text (T-800) */
+  --muted: #666464;          /* Charcoal Warm — secondary body text (T-700) */
+  --meta: #9fa0a0;           /* Mid Warm — tertiary text, captions, metadata (T-500) */
+
+  /* ─── Border (2 levels) ──────────────────────────────────────────
+   * Loam-tinted borders — the gentlest possible containment. */
+  --border: #e0dcd5;         /* Border Warm — standard light-theme border (N-700) */
+  --border-soft: #e5e1db;    /* Border Soft — softer separators, section dividers (N-600) */
+
+  /* ─── Accent ──────────────────────────────────────────────────────
+   * Pine Olive (Pantone 5747C) — the primary brand identity.
+   * Used for primary CTA buttons and highest-signal brand moments only.
+   * Earthen Tan (Pantone 7504C) lives as P-900 in the extended scale. */
+  --accent: #364118;
+  --accent-on: #ffffff;      /* Pure white — fg when olive is the bg */
+  --accent-hover: #4a5128;   /* S1-800 — slightly darker pine */
+  --accent-active: #5d613a;  /* S1-700 — pressed/active olive */
+
+  /* ─── Semantic ────────────────────────────────────────────────────
+   * Status colors deliberately drawn from the same warm earth family —
+   * no cool blues, no synthetic greens. Spring olive replaces the
+   * standard cool-leaf green; ember replaces the standard tech red. */
+  --success: #9aa02f;        /* Spring Olive — success states (yellow-olive family) */
+  --warn: #fac76a;           /* Wheat — standard warnings */
+  --danger: #ea5614;         /* Ember — error states (warm orange-red, not blue-red) */
+
+  /* ─── Typography ──────────────────────────────────────────────────
+   * Marcellus (humanist serif, EN) + Noto Serif TC (CJK) for all brand
+   * expression — wordmarks, slogans, editorial moments. Montserrat
+   * + Noto Sans TC for every screen-level UI need. JetBrains Mono
+   * for code, with system-mono fallbacks for installations without it. */
+  --font-display: "Marcellus", "Noto Serif TC", "PingFang TC", Georgia, "Times New Roman", serif;
+  --font-body: "Montserrat", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+
+  /* Type scale — DESIGN.md §3 Typography Rules.
+   * H1 36px (display) → H5 16px (card title) → B5 10px (micro).
+   * Both ZH and EN ladders share this scale so bilingual lines line up. */
+  --text-xs: 10px;           /* B4 / B5 — captions, links, micro labels */
+  --text-sm: 12px;           /* B2 / B3 — card body, button labels */
+  --text-base: 14px;         /* B1 — standard body copy */
+  --text-lg: 16px;           /* H5 — card titles */
+  --text-xl: 20px;           /* H4 — subheadings */
+  --text-2xl: 24px;          /* H3 — section titles */
+  --text-3xl: 28px;          /* H2 — slogan / section headers */
+  --text-4xl: 36px;          /* H1 — landing-page headlines */
+
+  --leading-body: 1.7;       /* Generous editorial cadence — closer to a book than a dashboard */
+  --leading-tight: 1.2;      /* Tight headings — serif letterforms breathe naturally */
+  --tracking-display: 0em;   /* Marcellus and Noto Serif TC carry authority; no compression needed */
+
+  /* ─── Spacing ─────────────────────────────────────────────────────
+   * 4px base unit per DESIGN.md §5. Card internal padding 24–32px.
+   * Section vertical spacing 96px desktop. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  --section-y-desktop: 96px; /* Editorial pacing — generous like a magazine spread */
+  --section-y-tablet: 64px;
+  --section-y-phone: 48px;
+
+  /* ─── Radius ──────────────────────────────────────────────────────
+   * dacitech's softness: comfortably rounded (8px) for standard,
+   * generously rounded (12px) for cards and inputs, very rounded (16px)
+   * for featured containers. No sharp corners — softness is core identity. */
+  --radius-sm: 8px;          /* Comfortably rounded — standard buttons, inputs, chips */
+  --radius-md: 12px;         /* Generously rounded — cards, modals */
+  --radius-lg: 16px;         /* Very rounded — featured containers, image frames */
+  --radius-pill: 9999px;     /* Chip-like elements, avatars, status pills */
+
+  /* ─── Elevation ───────────────────────────────────────────────────
+   * Ring shadows (1px N-700 border) for default elevation.
+   * Whisper shadows (rgba(35,24,21,0.06) 0 2px 8px) for true lift.
+   * The dominant depth signal is section background color, not shadow. */
+  --elev-flat: none;
+  --elev-ring: 0 0 0 1px var(--border);
+  --elev-raised: 0 2px 8px rgba(35, 24, 21, 0.06);
+
+  /* ─── Focus ring ──────────────────────────────────────────────────
+   * Pine-olive glow at 20% alpha. dacitech rejects the default cool-blue
+   * focus indicator — every accessibility cue stays in the warm family. */
+  --focus-ring: 0 0 0 3px rgba(55, 66, 24, 0.20);
+
+  /* ─── Motion ──────────────────────────────────────────────────────
+   * Short, purposeful transitions. The editorial earthiness doesn't
+   * need animation energy — interactions should feel calm, like a
+   * page turning. */
+  --motion-fast: 150ms;
+  --motion-base: 200ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ─── Layout ──────────────────────────────────────────────────────
+   * 1200px container, editorial layout. Hero is centered or 1.4:1
+   * asymmetric two-column. Feature sections use 2–3 column card grids. */
+  --container-max: 1200px;
+  --container-gutter-desktop: 24px;
+  --container-gutter-tablet: 16px;
+  --container-gutter-phone: 12px;
+
+  /* ──────────────────────────────────────────────────────────────────
+   * C-extension tokens — dacitech-specific 9-step scales (P/S1/S2/N/T)
+   * inherited from the VANA CIS 2026 token model. These power the
+   * "soil ladder" of section bands, alternating row backgrounds,
+   * status color tinting, and the dual-script H/B text hierarchy.
+   * ─────────────────────────────────────────────────────── */
+
+  /* Primary (P) — Earthen Tan scale (Pantone 7504C family) */
+  --p-900: #977a5b;          /* Darkest tan — strong dividers, CTA on cream */
+  --p-800: #a1876a;          /* Deep loam — hover state for p-900 */
+  --p-700: #ac947a;          /* Mid loam — emphasized container bg on dark */
+  --p-600: #b7a28b;          /* Soft loam — secondary buttons, badges */
+  --p-500: #c3b19d;          /* Brand tan reference — mid-scale anchor */
+  --p-400: #cfc0b0;          /* Pale loam — subtle hover backgrounds */
+  --p-300: #dbd0c3;          /* Stone tan — divider lines, soft fills */
+  --p-200: #e7e0d7;          /* Cream tan — alternating row backgrounds */
+  --p-100: #f4f0ec;          /* Page parchment — primary light canvas */
+
+  /* Secondary 1 (S1) — Pine Olive scale (Pantone 5747C family) */
+  --s1-900: #374218;         /* Pine olive — primary CTA, brand reference */
+  --s1-800: #4a5128;         /* Deeper olive — pressed/active CTA */
+  --s1-700: #5d613a;         /* Moss — emphasized dark surfaces, focus border */
+  --s1-600: #72744e;         /* Sage olive — secondary olive surfaces */
+  --s1-500: #878766;         /* Lichen — mid-scale anchor */
+  --s1-400: #9d9d80;         /* Faded sage — muted olive accents */
+  --s1-300: #b4b49e;         /* Pale sage — soft olive fills */
+  --s1-200: #cdccbd;         /* Mist olive — gentle backgrounds */
+  --s1-100: #e6e6de;         /* Olive cream — alternating section backgrounds */
+
+  /* Secondary 2 (S2) — Yellow-Olive scale (data visualization family) */
+  --s2-900: #56641f;         /* Deep yellow-olive — chart primary */
+  --s2-800: #67712f;         /* Moss yellow — chart secondary */
+  --s2-700: #787f41;         /* Sage yellow — chart fills */
+  --s2-600: #8a8e57;         /* Lichen yellow — chart grids */
+  --s2-500: #9d9f6f;         /* Pale yellow-olive — mid-scale anchor */
+  --s2-400: #b0b189;         /* Mist yellow-olive — chart backgrounds */
+  --s2-300: #c3c3a6;         /* Pale yellow-mist — chart axis labels */
+  --s2-200: #d7d7c3;         /* Cream yellow-olive — subtle accents */
+  --s2-100: #ecece2;         /* Lightest yellow-cream — gentle highlights */
+
+  /* Neutral (N) — Warm Gray scale */
+  --n-900: #d7d2c9;          /* Strongest neutral — emphasized borders */
+  --n-800: #dbd7cf;          /* Strong border — section dividers */
+  --n-700: #e0dcd5;          /* Standard border — card borders */
+  --n-600: #e5e1db;          /* Soft border — subtle separators */
+  --n-500: #e9e7e2;          /* Surface tint — alternating row backgrounds */
+  --n-400: #eeece8;          /* Pale surface — disabled backgrounds */
+  --n-300: #f2f1ee;          /* Card surface — elevated container background */
+  --n-200: #f7f6f4;          /* Light surface — table headers */
+  --n-100: #fbfbfa;          /* Lightest neutral — pure-light alternative */
+
+  /* Text (T) — Foreground ramp */
+  --t-900: #231815;          /* Near black — primary text */
+  --t-800: #454241;          /* Dark warm — emphasized secondary, links */
+  --t-700: #666464;          /* Charcoal warm — secondary body */
+  --t-600: #838383;          /* Mid gray — tertiary text */
+  --t-500: #9fa0a0;          /* Mid warm — placeholder, metadata */
+  --t-400: #babbbb;          /* Light gray — disabled text */
+  --t-300: #d3d3d4;          /* Pale gray — text on dark warm surfaces */
+  --t-200: #eaebeb;          /* Lightest gray — text on near-black */
+  --t-100: #ffffff;          /* Pure white — text on olive and bark */
+
+  /* Functional / Error palette — extended status colors from the
+     CIS auxiliary system. Hold all warm — never cool. */
+  --func-spring-olive: #9aa02f;  /* Success / validated */
+  --func-linen: #c6bbab;          /* Indeterminate / in-progress */
+  --func-wheat-soft: #f6e2a1;    /* Soft warning / informational */
+  --func-wheat: #fac76a;          /* Standard warning */
+  --func-burnt-orange: #d8670b;  /* Urgent warning */
+  --error-ember: #ea5614;         /* Standard error */
+  --error-coral: #f19065;         /* Soft error / inline highlight */
+
+  /* Brand anchors — the four Pantone-derived identity colors */
+  --brand-pine-olive: #364118;   /* Pantone 5747C — primary brand */
+  --brand-earthen-tan: #96795a;  /* Pantone 7504C — secondary brand */
+  --brand-stone: #d6d2c3;        /* Pantone 7527C — surface anchor */
+  --brand-bark: #322828;         /* Pantone 440C — dark-surface anchor */
+
+  /* Bilingual type hierarchy (ZH / EN parity).
+     Sizes match the CIS 5-3 ladder. Use these aliases when building
+     components so future tweaks ripple through automatically. */
+  --h1-size: 36px;   --h1-weight: 700;
+  --h2-size: 28px;   --h2-weight: 700;   /* EN may use 600 SemiBold */
+  --h3-size: 24px;   --h3-weight: 700;   /* EN may use 600 SemiBold */
+  --h4-size: 20px;   --h4-weight: 700;   /* EN may use 500 Medium */
+  --h5-size: 16px;   --h5-weight: 700;   /* EN may use 500 Medium */
+  --b1-size: 14px;   --b1-weight: 400;
+  --b2-size: 12px;   --b2-weight: 400;
+  --b3-size: 12px;   --b3-weight: 500;   /* Buttons / labels */
+  --b4-size: 10px;   --b4-weight: 300;
+  --b5-size: 10px;   --b5-weight: 300;
+
+  /* Brand wordmark sizing — used by the typographic logotype in
+     headers, footers, and brand moments. There is no logo mark;
+     the wordmark IS the brand. */
+  --wordmark-lg: 48px;   /* Hero brand expression */
+  --wordmark-md: 32px;   /* Standard brand moment */
+  --wordmark-sm: 24px;   /* Header wordmark */
+}

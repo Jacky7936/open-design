@@ -1,0 +1,1209 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>dacitech (大慈資訊) — reference components</title>
+    <meta
+      name="description"
+      content="Reference fixture for design-systems/dacitech. Humanistic IT studio aesthetic:
+        warm parchment canvas, pine-olive + earthen-tan brand duo, Marcellus + Noto Serif TC
+        headings. Every visible value comes from tokens.css via var(--*)."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* :root paste — sourced verbatim from
+         design-systems/dacitech/tokens.css. Keep in sync when tokens change. */
+      :root {
+        --bg: #f4f0ec;
+        --surface: #f2f1ee;
+        --surface-warm: #e7e0d7;
+
+        --fg: #231815;
+        --fg-2: #454241;
+        --muted: #666464;
+        --meta: #9fa0a0;
+
+        --border: #e0dcd5;
+        --border-soft: #e5e1db;
+
+        --accent: #364118;
+        --accent-on: #ffffff;
+        --accent-hover: #4a5128;
+        --accent-active: #5d613a;
+
+        --success: #9aa02f;
+        --warn: #fac76a;
+        --danger: #ea5614;
+
+        --font-display: "Marcellus", "Noto Serif TC", "PingFang TC", Georgia, "Times New Roman", serif;
+        --font-body: "Montserrat", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+
+        --text-xs: 10px;
+        --text-sm: 12px;
+        --text-base: 14px;
+        --text-lg: 16px;
+        --text-xl: 20px;
+        --text-2xl: 24px;
+        --text-3xl: 28px;
+        --text-4xl: 36px;
+
+        --leading-body: 1.7;
+        --leading-tight: 1.2;
+        --tracking-display: 0em;
+
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 20px;
+        --space-6: 24px;
+        --space-8: 32px;
+        --space-12: 48px;
+
+        --section-y-desktop: 96px;
+        --section-y-tablet: 64px;
+        --section-y-phone: 48px;
+
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-pill: 9999px;
+
+        --elev-flat: none;
+        --elev-ring: 0 0 0 1px var(--border);
+        --elev-raised: 0 2px 8px rgba(35, 24, 21, 0.06);
+
+        --focus-ring: 0 0 0 3px rgba(55, 66, 24, 0.20);
+
+        --motion-fast: 150ms;
+        --motion-base: 200ms;
+        --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+        --container-max: 1200px;
+        --container-gutter-desktop: 24px;
+        --container-gutter-tablet: 16px;
+        --container-gutter-phone: 12px;
+
+        /* C-extensions — dacitech graded scales */
+        --p-900: #977a5b; --p-800: #a1876a; --p-700: #ac947a; --p-600: #b7a28b;
+        --p-500: #c3b19d; --p-400: #cfc0b0; --p-300: #dbd0c3; --p-200: #e7e0d7; --p-100: #f4f0ec;
+
+        --s1-900: #374218; --s1-800: #4a5128; --s1-700: #5d613a; --s1-600: #72744e;
+        --s1-500: #878766; --s1-400: #9d9d80; --s1-300: #b4b49e; --s1-200: #cdccbd; --s1-100: #e6e6de;
+
+        --s2-900: #56641f; --s2-800: #67712f; --s2-700: #787f41; --s2-600: #8a8e57;
+        --s2-500: #9d9f6f; --s2-400: #b0b189; --s2-300: #c3c3a6; --s2-200: #d7d7c3; --s2-100: #ecece2;
+
+        --n-900: #d7d2c9; --n-800: #dbd7cf; --n-700: #e0dcd5; --n-600: #e5e1db;
+        --n-500: #e9e7e2; --n-400: #eeece8; --n-300: #f2f1ee; --n-200: #f7f6f4; --n-100: #fbfbfa;
+
+        --t-900: #231815; --t-800: #454241; --t-700: #666464; --t-600: #838383;
+        --t-500: #9fa0a0; --t-400: #babbbb; --t-300: #d3d3d4; --t-200: #eaebeb; --t-100: #ffffff;
+
+        --func-spring-olive: #9aa02f;
+        --func-linen: #c6bbab;
+        --func-wheat-soft: #f6e2a1;
+        --func-wheat: #fac76a;
+        --func-burnt-orange: #d8670b;
+        --error-ember: #ea5614;
+        --error-coral: #f19065;
+
+        --brand-pine-olive: #364118;
+        --brand-earthen-tan: #96795a;
+        --brand-stone: #d6d2c3;
+        --brand-bark: #322828;
+      }
+
+      /* ─── Reset (minimal) ───────────────────────────────────── */
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--font-body);
+        font-size: var(--text-base);
+        line-height: var(--leading-body);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ─── Layout primitives ─────────────────────────────────── */
+      .container {
+        max-width: var(--container-max);
+        margin-inline: auto;
+        padding-inline: var(--container-gutter-desktop);
+      }
+      section { padding-block: var(--section-y-desktop); }
+      section + section { border-top: 1px solid var(--border); }
+      @media (max-width: 1023px) {
+        .container { padding-inline: var(--container-gutter-tablet); }
+        section { padding-block: var(--section-y-tablet); }
+      }
+      @media (max-width: 639px) {
+        .container { padding-inline: var(--container-gutter-phone); }
+        section { padding-block: var(--section-y-phone); }
+      }
+
+      /* ─── Soil-ladder section variants ──────────────────────── */
+      .band-cream  { background: var(--bg); color: var(--fg); }
+      .band-stone  { background: var(--brand-stone); color: var(--fg); }
+      .band-olive  { background: var(--brand-pine-olive); color: var(--t-100); }
+      .band-bark   { background: var(--brand-bark); color: var(--t-200); }
+      .band-olive a, .band-bark a { color: var(--t-100); }
+      .band-olive .muted, .band-bark .muted { color: var(--t-300); }
+      .band-olive + section, .band-bark + section { border-top: none; }
+      section + .band-olive, section + .band-bark { border-top: none; }
+
+      /* ─── Typography — bilingual H/B ladder ─────────────────── */
+      h1, h2, h3, h4, h5 {
+        font-family: var(--font-body); /* sans for UI hierarchy */
+        font-weight: 700;
+        line-height: var(--leading-tight);
+        margin: 0;
+        letter-spacing: var(--tracking-display);
+        color: inherit;
+      }
+      h1 { font-size: var(--text-4xl); line-height: 1.30; }    /* H1 — 36px */
+      h2 { font-size: var(--text-3xl); line-height: 1.30; }    /* H2 — 28px */
+      h3 { font-size: var(--text-2xl); line-height: 1.35; }    /* H3 — 24px */
+      h4 { font-size: var(--text-xl);  line-height: 1.40; }    /* H4 — 20px */
+      h5 { font-size: var(--text-lg);  line-height: 1.45; }    /* H5 — 16px */
+
+      .display {
+        font-family: var(--font-display);
+        font-weight: 400;
+        line-height: 1.10;
+        letter-spacing: 0;
+      }
+      .display-lg { font-size: 64px; }
+      .display-md { font-size: 48px; }
+      .display-sm { font-size: 32px; }
+
+      p { margin: 0; }
+      .lead {
+        font-size: var(--text-xl);
+        color: var(--muted);
+        line-height: var(--leading-body);
+      }
+      .b1 { font-size: var(--text-base); line-height: 1.70; }
+      .b2 { font-size: var(--text-sm);  line-height: 1.70; }
+      .b3 { font-size: var(--text-sm);  font-weight: 500; line-height: 1.40; }
+      .b4 { font-size: var(--text-xs);  font-weight: 300; line-height: 1.60; color: var(--meta); }
+      .b5 { font-size: var(--text-xs);  font-weight: 300; line-height: 1.60; text-decoration: underline; }
+      .muted { color: var(--muted); }
+      .meta { color: var(--meta); }
+
+      .eyebrow {
+        font-family: var(--font-body);
+        font-size: var(--text-xs);
+        color: var(--meta);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 500;
+      }
+      .stack-2 > * + * { margin-block-start: var(--space-2); }
+      .stack-3 > * + * { margin-block-start: var(--space-3); }
+      .stack-4 > * + * { margin-block-start: var(--space-4); }
+      .stack-6 > * + * { margin-block-start: var(--space-6); }
+      .stack-8 > * + * { margin-block-start: var(--space-8); }
+
+      /* ─── Wordmark (no logo — typography IS the brand) ─────── */
+      .wordmark {
+        display: inline-flex;
+        align-items: baseline;
+        gap: var(--space-3);
+      }
+      .wordmark-en {
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: 24px;
+        letter-spacing: 0.02em;
+      }
+      .wordmark-zh {
+        font-family: "Noto Serif TC", serif;
+        font-weight: 500;
+        font-size: 14px;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+      .wordmark-hero .wordmark-en { font-size: 64px; line-height: 1; }
+      .wordmark-hero .wordmark-zh { font-size: 24px; }
+
+      /* ─── Buttons ───────────────────────────────────────────── */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-2);
+        padding: 12px 20px;
+        border-radius: var(--radius-sm);
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        line-height: 1;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition:
+          background-color var(--motion-fast) var(--ease-standard),
+          border-color var(--motion-fast) var(--ease-standard),
+          box-shadow var(--motion-fast) var(--ease-standard),
+          color var(--motion-fast) var(--ease-standard);
+        text-decoration: none;
+      }
+      .btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+      .btn-primary {
+        background: var(--accent);
+        color: var(--accent-on);
+        border-color: var(--accent);
+      }
+      .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+      .btn-primary:active { background: var(--accent-active); border-color: var(--accent-active); }
+
+      .btn-secondary {
+        background: var(--p-600);
+        color: var(--fg);
+        border-color: var(--p-600);
+      }
+      .btn-secondary:hover { background: var(--p-500); border-color: var(--p-500); }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .btn-outline:hover { background: var(--p-100); }
+      .band-olive .btn-outline { color: var(--t-100); border-color: var(--t-100); }
+      .band-olive .btn-outline:hover { background: rgba(255,255,255,0.06); }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--fg-2);
+        border-color: transparent;
+      }
+      .btn-ghost:hover { background: var(--n-300); }
+
+      /* ─── Inputs ────────────────────────────────────────────── */
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+      .field label {
+        font-size: var(--text-sm);
+        font-weight: 500;
+        color: var(--fg-2);
+      }
+      .field input,
+      .field textarea {
+        padding: 10px 12px;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border);
+        background: var(--n-100);
+        color: var(--fg);
+        font-family: var(--font-body);
+        font-size: var(--text-base);
+        line-height: 1.5;
+        outline: none;
+        transition:
+          border-color var(--motion-fast) var(--ease-standard),
+          box-shadow var(--motion-fast) var(--ease-standard);
+      }
+      .field input:focus-visible,
+      .field textarea:focus-visible {
+        border-color: var(--s1-700);
+        box-shadow: var(--focus-ring);
+      }
+      .field input::placeholder { color: var(--meta); }
+      .field-help {
+        font-size: var(--text-xs);
+        color: var(--meta);
+      }
+      .field-error {
+        font-size: var(--text-xs);
+        color: var(--error-ember);
+      }
+      .field input[aria-invalid="true"] {
+        border-color: var(--error-ember);
+      }
+
+      /* ─── Cards ─────────────────────────────────────────────── */
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: var(--space-8);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+        transition: box-shadow var(--motion-base) var(--ease-standard);
+      }
+      .card-elevated {
+        box-shadow: var(--elev-raised);
+      }
+      .card-featured {
+        border-top: 4px solid var(--accent);
+        border-radius: var(--radius-md);
+        padding: var(--space-8);
+      }
+      .card-quote {
+        position: relative;
+        padding-inline-start: var(--space-6);
+        border-inline-start: 4px solid var(--accent);
+      }
+
+      /* ─── Badges & chips ────────────────────────────────────── */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: 4px 10px;
+        border-radius: var(--radius-pill);
+        font-family: var(--font-body);
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.4;
+        letter-spacing: 0.12px;
+        text-transform: uppercase;
+      }
+      .badge-success { color: #5b6014; background: color-mix(in oklab, var(--func-spring-olive), white 75%); }
+      .badge-muted   { color: var(--muted); background: var(--n-300); border: 1px solid var(--border); }
+      .badge-warn    { color: #7a4b0a; background: color-mix(in oklab, var(--func-wheat), white 70%); }
+      .badge-error   { color: #7a2d0a; background: color-mix(in oklab, var(--error-coral), white 70%); }
+      .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+      .token-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: 6px 10px;
+        border-radius: 6px;
+        background: var(--n-300);
+        border: 1px solid var(--border);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        color: var(--fg-2);
+      }
+      .token-chip-swatch {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        border: 1px solid rgba(35,24,21,0.10);
+      }
+      .token-chip code {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      /* ─── Links & inline ────────────────────────────────────── */
+      a {
+        color: var(--fg-2);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+        transition: color var(--motion-fast) var(--ease-standard);
+      }
+      a:hover { color: var(--accent); }
+      .band-olive a:hover, .band-bark a:hover { color: var(--p-300); }
+
+      kbd {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        padding: 2px 6px;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        background: var(--surface-warm);
+        color: var(--muted);
+      }
+
+      code.inline {
+        font-family: var(--font-mono);
+        font-size: 0.92em;
+        padding: 2px 6px;
+        border-radius: 4px;
+        background: var(--n-300);
+        border: 1px solid var(--border);
+        color: var(--fg-2);
+      }
+
+      /* ─── Section grids ─────────────────────────────────────── */
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: var(--space-12);
+        align-items: end;
+      }
+      @media (max-width: 1023px) {
+        .hero-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+      }
+      .hero-actions {
+        display: flex;
+        gap: var(--space-3);
+        margin-block-start: var(--space-6);
+        flex-wrap: wrap;
+      }
+      .hero-meta {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+        padding: var(--space-6);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface);
+        box-shadow: var(--elev-raised);
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-6);
+      }
+      @media (max-width: 1023px) {
+        .features-grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 639px) {
+        .features-grid { grid-template-columns: 1fr; }
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: var(--space-12);
+        align-items: start;
+      }
+      @media (max-width: 1023px) {
+        .form-row { grid-template-columns: 1fr; }
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+        max-width: 480px;
+      }
+      .form-actions {
+        display: flex;
+        gap: var(--space-3);
+        margin-block-start: var(--space-2);
+        flex-wrap: wrap;
+      }
+      .row-between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-3);
+      }
+      .icon { width: 16px; height: 16px; flex-shrink: 0; }
+
+      /* ─── Type ladder (showcase) ────────────────────────────── */
+      .type-row {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: var(--space-6);
+        padding-block: var(--space-3);
+        border-bottom: 1px solid var(--border-soft);
+        align-items: baseline;
+      }
+      .type-row:last-child { border-bottom: none; }
+      .type-row .meta-label { color: var(--meta); font-size: var(--text-xs); letter-spacing: 0.05em; }
+      .type-row .meta-label code { color: var(--muted); }
+
+      /* ─── Palette grid ──────────────────────────────────────── */
+      .palette-grid {
+        display: grid;
+        grid-template-columns: 160px repeat(9, 1fr);
+        gap: 2px;
+        margin-block-start: var(--space-4);
+      }
+      .palette-grid .palette-label {
+        font-size: var(--text-sm);
+        font-weight: 500;
+        color: var(--fg-2);
+        align-self: center;
+        padding-inline-end: var(--space-3);
+      }
+      .palette-grid .swatch {
+        aspect-ratio: 1.5 / 1;
+        position: relative;
+        font-size: 10px;
+        font-family: var(--font-mono);
+        color: var(--fg);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 8px;
+      }
+      .palette-grid .swatch.dark { color: var(--t-100); }
+      .palette-grid .swatch .scale-num { font-weight: 500; }
+      .palette-grid .swatch .scale-hex { opacity: 0.85; }
+      @media (max-width: 1023px) {
+        .palette-grid { grid-template-columns: 120px repeat(9, 1fr); }
+        .palette-grid .swatch { padding: 6px; font-size: 9px; }
+      }
+
+      /* ─── Soil-ladder showcase ──────────────────────────────── */
+      .ladder {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+      .ladder-rung {
+        padding: var(--space-6);
+        min-height: 160px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: var(--space-3);
+      }
+      .ladder-rung.r1 { background: var(--bg); color: var(--fg); }
+      .ladder-rung.r2 { background: var(--brand-stone); color: var(--fg); }
+      .ladder-rung.r3 { background: var(--brand-pine-olive); color: var(--t-100); }
+      .ladder-rung.r4 { background: var(--brand-bark); color: var(--t-200); }
+      @media (max-width: 767px) {
+        .ladder { grid-template-columns: 1fr 1fr; }
+      }
+
+      /* ─── Status colors ─────────────────────────────────────── */
+      .status-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: var(--space-2);
+        margin-block-start: var(--space-4);
+      }
+      .status-cell {
+        padding: var(--space-3);
+        border-radius: var(--radius-sm);
+        font-size: var(--text-xs);
+        font-family: var(--font-mono);
+        min-height: 72px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      @media (max-width: 767px) {
+        .status-grid { grid-template-columns: repeat(3, 1fr); }
+      }
+
+      /* ─── Footer wordmark ───────────────────────────────────── */
+      footer.band-bark {
+        padding-block: var(--space-12);
+      }
+      footer .row-between { align-items: flex-end; }
+    </style>
+  </head>
+  <body>
+    <!-- ═══════════════════════════════════════════════════════════════
+         NAV — wordmark + bilingual links + olive primary CTA
+    ═══════════════════════════════════════════════════════════════════ -->
+    <header style="position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--border);">
+      <div class="container" style="padding-block: var(--space-4); display: flex; align-items: center; justify-content: space-between; gap: var(--space-6);">
+        <a href="#hero" class="wordmark" style="text-decoration: none;">
+          <span class="wordmark-en">dacitech</span>
+          <span class="wordmark-zh">大慈資訊</span>
+        </a>
+        <nav style="display: flex; gap: var(--space-6); align-items: center;">
+          <a href="#typography" class="b3" style="text-decoration: none;">字級 / Typography</a>
+          <a href="#palette" class="b3" style="text-decoration: none;">色票 / Palette</a>
+          <a href="#components" class="b3" style="text-decoration: none;">元件 / Components</a>
+          <a href="#contact" class="btn btn-primary">聯絡我們 · Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ═════════════════════════════════════════════════════════════
+           HERO — display wordmark, lead, bilingual CTAs, status meta
+      ═════════════════════════════════════════════════════════════════ -->
+      <section id="hero" class="band-cream">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="stack-4">
+              <p class="eyebrow">Reference fixture · dacitech</p>
+              <span class="wordmark wordmark-hero">
+                <span class="wordmark-en">dacitech</span>
+                <span class="wordmark-zh">大慈資訊</span>
+              </span>
+              <h1 style="max-width: 16ch">資訊的餘裕，源自一份慈心。</h1>
+              <p class="display display-sm" style="max-width: 22ch">Considered systems for considered work.</p>
+              <p class="lead" style="max-width: 56ch">
+                以低飽和的大地色彩、襯線/無襯線雙軌字型、與留白的版面節奏，
+                為企業資訊環境帶回耐心與秩序。Built on warm parchment, paired
+                with pine olive and earthen tan — IT that feels like reading,
+                not refreshing.
+              </p>
+              <div class="hero-actions">
+                <a href="./tokens.css" class="btn btn-primary">
+                  查看 Tokens · View tokens
+                  <svg class="icon" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.75"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+                <a href="./DESIGN.md" class="btn btn-outline">閱讀規範 · Read the spec</a>
+              </div>
+            </div>
+
+            <aside class="hero-meta" aria-label="System status">
+              <div class="row-between">
+                <span class="b1 muted">系統狀態 · Status</span>
+                <span class="badge badge-success">
+                  <span class="badge-dot" aria-hidden="true"></span>
+                  Operational
+                </span>
+              </div>
+              <p class="b2 muted">
+                最後審閱 · Last reviewed
+                <time datetime="2026-05-22">2026-05-22</time> · v1.0
+              </p>
+              <p class="b2 muted">
+                按 <kbd>⌘</kbd> <kbd>K</kbd> 搜尋 Tokens / Search tokens.
+              </p>
+              <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); margin-block-start: var(--space-2);">
+                <span class="token-chip">
+                  <span class="token-chip-swatch" style="background: var(--brand-pine-olive)"></span>
+                  Pine Olive <code>#364118</code>
+                </span>
+                <span class="token-chip">
+                  <span class="token-chip-swatch" style="background: var(--brand-earthen-tan)"></span>
+                  Earthen Tan <code>#96795a</code>
+                </span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════════════════════
+           TYPOGRAPHY LADDER — bilingual H1–H5 + B1–B5 + display
+      ═════════════════════════════════════════════════════════════════ -->
+      <section id="typography" class="band-cream">
+        <div class="container">
+          <div class="stack-3" style="margin-block-end: var(--space-8);">
+            <p class="eyebrow">字級階層 · Typography hierarchy</p>
+            <h2 style="max-width: 32ch">中英文字級平行對照，序列穩定如書頁。</h2>
+            <p class="lead" style="max-width: 60ch">
+              H1–H5 為標題層，B1–B5 為內文層。中文使用 Noto Sans TC，
+              英文使用 Montserrat，兩者共用同一尺寸表，雙語並排時自然對齊。
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12);">
+            <!-- ZH ladder -->
+            <div>
+              <h3 style="margin-block-end: var(--space-4);">中文 · Noto Sans TC</h3>
+              <div class="type-row">
+                <span class="meta-label">H1-ZH<br><code>Bold / 36px</code></span>
+                <h1>首頁大標 · 大慈資訊</h1>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">H2-ZH<br><code>Bold / 28px</code></span>
+                <h2>區塊標題 / Slogan</h2>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">H3-ZH<br><code>Bold / 24px</code></span>
+                <h3>一般區塊標題</h3>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">H4-ZH<br><code>Bold / 20px</code></span>
+                <h4>副標題 / Slogan 副標</h4>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">H5-ZH<br><code>Bold / 16px</code></span>
+                <h5>卡片標題</h5>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">B1-ZH<br><code>Regular / 14px</code></span>
+                <p class="b1">一般內文 — 大慈資訊以耐心整合資訊，把雜訊轉為秩序。</p>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">B2-ZH<br><code>Regular / 12px</code></span>
+                <p class="b2">卡片內文 — 在資訊密度高的介面中，留白本身就是一種設計。</p>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">B3-ZH<br><code>Medium / 12px</code></span>
+                <span class="b3">按鈕 / 標籤</span>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">B4-ZH<br><code>Light / 10px</code></span>
+                <span class="b4">備註 — 補充說明文字</span>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">B5-ZH<br><code>Light / 10px</code></span>
+                <a class="b5" href="#">連結 — inline link</a>
+              </div>
+            </div>
+
+            <!-- EN ladder -->
+            <div>
+              <h3 style="margin-block-end: var(--space-4);">English · Montserrat</h3>
+              <div class="type-row">
+                <span class="meta-label">H1-EN<br><code>Bold / 36px</code></span>
+                <h1>Headline · dacitech</h1>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">H2-EN<br><code>SemiBold / 28px</code></span>
+                <h2 style="font-weight: 600;">Section · Slogan</h2>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">H3-EN<br><code>SemiBold / 24px</code></span>
+                <h3 style="font-weight: 600;">Sub-section title</h3>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">H4-EN<br><code>Medium / 20px</code></span>
+                <h4 style="font-weight: 500;">Sub-heading text</h4>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">H5-EN<br><code>Medium / 16px</code></span>
+                <h5 style="font-weight: 500;">Card title</h5>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">B1-EN<br><code>Regular / 14px</code></span>
+                <p class="b1">Body copy — dacitech rebuilds enterprise information environments with patience, replacing noise with order.</p>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">B2-EN<br><code>Regular / 12px</code></span>
+                <p class="b2">Card body — In dense information surfaces, white space is itself a design decision.</p>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">B3-EN<br><code>Medium / 12px</code></span>
+                <span class="b3">Button / Label</span>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">B4-EN<br><code>Light / 10px</code></span>
+                <span class="b4">Caption — auxiliary metadata</span>
+              </div>
+              <div class="type-row">
+                <span class="meta-label">B5-EN<br><code>Light / 10px</code></span>
+                <a class="b5" href="#">Inline link</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Display (serif) showcase -->
+          <div class="stack-6" style="margin-block-start: var(--space-12); padding-block-start: var(--space-8); border-top: 1px solid var(--border);">
+            <div class="stack-3">
+              <p class="eyebrow">品牌表現字體 · Brand expression</p>
+              <h3>Marcellus + Noto Serif TC — 給標題的人文重量</h3>
+              <p class="b1 muted" style="max-width: 60ch">
+                襯線字體用於品牌標題、宣言、引語。一個重量 (Regular / Medium)，
+                避免過度裝飾；只在需要表達品牌深度的瞬間出現。
+              </p>
+            </div>
+            <p class="display display-lg" style="font-family: var(--font-display);">Redefining Time and Space.</p>
+            <p class="display display-md" style="font-family: 'Noto Serif TC', serif; font-weight: 500;">創造，時間與空間的餘裕</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════════════════════
+           PALETTE — P / S1 / S2 / N / T scales + brand anchors + status
+      ═════════════════════════════════════════════════════════════════ -->
+      <section id="palette" class="band-stone">
+        <div class="container">
+          <div class="stack-3" style="margin-block-end: var(--space-8);">
+            <p class="eyebrow">品牌色彩 · Brand palette</p>
+            <h2 style="max-width: 30ch">大地色階以九階展開，組成「土壤底蘊 → 思考萌芽 → 沉澱留白 → 靈光乍現」的色彩階梯。</h2>
+            <p class="lead" style="max-width: 60ch; color: var(--muted);">
+              P (Primary / Earthen Tan) · S1 (Pine Olive) · S2 (Yellow-Olive) ·
+              N (Neutral Warm) · T (Text)
+            </p>
+          </div>
+
+          <!-- Primary (P) — tan -->
+          <div class="palette-grid">
+            <span class="palette-label">Primary (P) · Tan</span>
+            <div class="swatch dark" style="background: var(--p-900)"><span class="scale-num">P-900</span><span class="scale-hex">#977a5b</span></div>
+            <div class="swatch dark" style="background: var(--p-800)"><span class="scale-num">P-800</span><span class="scale-hex">#a1876a</span></div>
+            <div class="swatch dark" style="background: var(--p-700)"><span class="scale-num">P-700</span><span class="scale-hex">#ac947a</span></div>
+            <div class="swatch" style="background: var(--p-600)"><span class="scale-num">P-600</span><span class="scale-hex">#b7a28b</span></div>
+            <div class="swatch" style="background: var(--p-500)"><span class="scale-num">P-500</span><span class="scale-hex">#c3b19d</span></div>
+            <div class="swatch" style="background: var(--p-400)"><span class="scale-num">P-400</span><span class="scale-hex">#cfc0b0</span></div>
+            <div class="swatch" style="background: var(--p-300)"><span class="scale-num">P-300</span><span class="scale-hex">#dbd0c3</span></div>
+            <div class="swatch" style="background: var(--p-200)"><span class="scale-num">P-200</span><span class="scale-hex">#e7e0d7</span></div>
+            <div class="swatch" style="background: var(--p-100)"><span class="scale-num">P-100</span><span class="scale-hex">#f4f0ec</span></div>
+          </div>
+
+          <!-- Secondary 1 (S1) — olive -->
+          <div class="palette-grid">
+            <span class="palette-label">Secondary 1 (S1) · Olive</span>
+            <div class="swatch dark" style="background: var(--s1-900)"><span class="scale-num">S1-900</span><span class="scale-hex">#374218</span></div>
+            <div class="swatch dark" style="background: var(--s1-800)"><span class="scale-num">S1-800</span><span class="scale-hex">#4a5128</span></div>
+            <div class="swatch dark" style="background: var(--s1-700)"><span class="scale-num">S1-700</span><span class="scale-hex">#5d613a</span></div>
+            <div class="swatch dark" style="background: var(--s1-600)"><span class="scale-num">S1-600</span><span class="scale-hex">#72744e</span></div>
+            <div class="swatch" style="background: var(--s1-500)"><span class="scale-num">S1-500</span><span class="scale-hex">#878766</span></div>
+            <div class="swatch" style="background: var(--s1-400)"><span class="scale-num">S1-400</span><span class="scale-hex">#9d9d80</span></div>
+            <div class="swatch" style="background: var(--s1-300)"><span class="scale-num">S1-300</span><span class="scale-hex">#b4b49e</span></div>
+            <div class="swatch" style="background: var(--s1-200)"><span class="scale-num">S1-200</span><span class="scale-hex">#cdccbd</span></div>
+            <div class="swatch" style="background: var(--s1-100)"><span class="scale-num">S1-100</span><span class="scale-hex">#e6e6de</span></div>
+          </div>
+
+          <!-- Secondary 2 (S2) — yellow-olive -->
+          <div class="palette-grid">
+            <span class="palette-label">Secondary 2 (S2) · Yellow-Olive</span>
+            <div class="swatch dark" style="background: var(--s2-900)"><span class="scale-num">S2-900</span><span class="scale-hex">#56641f</span></div>
+            <div class="swatch dark" style="background: var(--s2-800)"><span class="scale-num">S2-800</span><span class="scale-hex">#67712f</span></div>
+            <div class="swatch dark" style="background: var(--s2-700)"><span class="scale-num">S2-700</span><span class="scale-hex">#787f41</span></div>
+            <div class="swatch dark" style="background: var(--s2-600)"><span class="scale-num">S2-600</span><span class="scale-hex">#8a8e57</span></div>
+            <div class="swatch" style="background: var(--s2-500)"><span class="scale-num">S2-500</span><span class="scale-hex">#9d9f6f</span></div>
+            <div class="swatch" style="background: var(--s2-400)"><span class="scale-num">S2-400</span><span class="scale-hex">#b0b189</span></div>
+            <div class="swatch" style="background: var(--s2-300)"><span class="scale-num">S2-300</span><span class="scale-hex">#c3c3a6</span></div>
+            <div class="swatch" style="background: var(--s2-200)"><span class="scale-num">S2-200</span><span class="scale-hex">#d7d7c3</span></div>
+            <div class="swatch" style="background: var(--s2-100)"><span class="scale-num">S2-100</span><span class="scale-hex">#ecece2</span></div>
+          </div>
+
+          <!-- Neutral (N) — warm gray -->
+          <div class="palette-grid">
+            <span class="palette-label">Neutral (N) · Warm gray</span>
+            <div class="swatch" style="background: var(--n-900)"><span class="scale-num">N-900</span><span class="scale-hex">#d7d2c9</span></div>
+            <div class="swatch" style="background: var(--n-800)"><span class="scale-num">N-800</span><span class="scale-hex">#dbd7cf</span></div>
+            <div class="swatch" style="background: var(--n-700)"><span class="scale-num">N-700</span><span class="scale-hex">#e0dcd5</span></div>
+            <div class="swatch" style="background: var(--n-600)"><span class="scale-num">N-600</span><span class="scale-hex">#e5e1db</span></div>
+            <div class="swatch" style="background: var(--n-500)"><span class="scale-num">N-500</span><span class="scale-hex">#e9e7e2</span></div>
+            <div class="swatch" style="background: var(--n-400)"><span class="scale-num">N-400</span><span class="scale-hex">#eeece8</span></div>
+            <div class="swatch" style="background: var(--n-300)"><span class="scale-num">N-300</span><span class="scale-hex">#f2f1ee</span></div>
+            <div class="swatch" style="background: var(--n-200)"><span class="scale-num">N-200</span><span class="scale-hex">#f7f6f4</span></div>
+            <div class="swatch" style="background: var(--n-100)"><span class="scale-num">N-100</span><span class="scale-hex">#fbfbfa</span></div>
+          </div>
+
+          <!-- Text (T) -->
+          <div class="palette-grid">
+            <span class="palette-label">Text (T) · Foreground ramp</span>
+            <div class="swatch dark" style="background: var(--t-900)"><span class="scale-num">T-900</span><span class="scale-hex">#231815</span></div>
+            <div class="swatch dark" style="background: var(--t-800)"><span class="scale-num">T-800</span><span class="scale-hex">#454241</span></div>
+            <div class="swatch dark" style="background: var(--t-700)"><span class="scale-num">T-700</span><span class="scale-hex">#666464</span></div>
+            <div class="swatch dark" style="background: var(--t-600)"><span class="scale-num">T-600</span><span class="scale-hex">#838383</span></div>
+            <div class="swatch" style="background: var(--t-500)"><span class="scale-num">T-500</span><span class="scale-hex">#9fa0a0</span></div>
+            <div class="swatch" style="background: var(--t-400)"><span class="scale-num">T-400</span><span class="scale-hex">#babbbb</span></div>
+            <div class="swatch" style="background: var(--t-300)"><span class="scale-num">T-300</span><span class="scale-hex">#d3d3d4</span></div>
+            <div class="swatch" style="background: var(--t-200)"><span class="scale-num">T-200</span><span class="scale-hex">#eaebeb</span></div>
+            <div class="swatch" style="background: var(--t-100); border: 1px solid var(--border);"><span class="scale-num">T-100</span><span class="scale-hex">#ffffff</span></div>
+          </div>
+
+          <!-- Brand anchors -->
+          <div class="stack-3" style="margin-block-start: var(--space-12);">
+            <p class="eyebrow">品牌色錨點 · Brand anchors</p>
+            <h3>四個 Pantone 來源色 — 整個系統的根</h3>
+          </div>
+          <div class="features-grid" style="margin-block-start: var(--space-4);">
+            <div class="card">
+              <div style="height: 80px; border-radius: var(--radius-sm); background: var(--brand-pine-olive);"></div>
+              <h5>Pine Olive</h5>
+              <p class="b2 muted">Pantone 5747C · #364118 · 主色 / Primary brand color</p>
+            </div>
+            <div class="card">
+              <div style="height: 80px; border-radius: var(--radius-sm); background: var(--brand-earthen-tan);"></div>
+              <h5>Earthen Tan</h5>
+              <p class="b2 muted">Pantone 7504C · #96795a · 次色 / Secondary brand color</p>
+            </div>
+            <div class="card">
+              <div style="height: 80px; border-radius: var(--radius-sm); background: var(--brand-stone); border: 1px solid var(--border);"></div>
+              <h5>Stone</h5>
+              <p class="b2 muted">Pantone 7527C · #d6d2c3 · 表面錨 / Surface anchor</p>
+            </div>
+            <div class="card">
+              <div style="height: 80px; border-radius: var(--radius-sm); background: var(--brand-bark);"></div>
+              <h5>Bark</h5>
+              <p class="b2 muted">Pantone 440C · #322828 · 深色表面 / Dark surface anchor</p>
+            </div>
+          </div>
+
+          <!-- Functional / Error -->
+          <div class="stack-3" style="margin-block-start: var(--space-12);">
+            <p class="eyebrow">狀態色 · Functional & error</p>
+            <h3>所有狀態色都保留在大地色系內</h3>
+            <p class="b1 muted" style="max-width: 60ch">
+              拒絕標準的 tech-blue / tech-red。Success 用春橄欖綠，
+              Warning 從淺麥到燒橙四階，Error 是火炭橘紅。
+            </p>
+          </div>
+          <div class="status-grid">
+            <div class="status-cell" style="background: var(--func-spring-olive); color: white;"><span>Spring Olive</span><span>#9aa02f</span></div>
+            <div class="status-cell" style="background: var(--func-linen); color: var(--fg);"><span>Linen</span><span>#c6bbab</span></div>
+            <div class="status-cell" style="background: var(--func-wheat-soft); color: var(--fg);"><span>Wheat Soft</span><span>#f6e2a1</span></div>
+            <div class="status-cell" style="background: var(--func-wheat); color: var(--fg);"><span>Wheat</span><span>#fac76a</span></div>
+            <div class="status-cell" style="background: var(--func-burnt-orange); color: white;"><span>Burnt Orange</span><span>#d8670b</span></div>
+            <div class="status-cell" style="background: var(--error-ember); color: white;"><span>Ember</span><span>#ea5614</span></div>
+            <div class="status-cell" style="background: var(--error-coral); color: white;"><span>Coral</span><span>#f19065</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════════════════════
+           SOIL LADDER — the four-rung section depth narrative
+      ═════════════════════════════════════════════════════════════════ -->
+      <section class="band-cream">
+        <div class="container">
+          <div class="stack-3" style="margin-block-end: var(--space-8);">
+            <p class="eyebrow">色彩階梯 · Soil ladder</p>
+            <h2 style="max-width: 32ch">土壤底蘊 → 思考萌芽 → 沉澱留白 → 靈光乍現</h2>
+            <p class="lead muted" style="max-width: 60ch">
+              四個段落色階是 dacitech 的縱深語言。每個版面區段選一個階，
+              如同書中的章節。階與階之間是硬切，不用漸層。
+            </p>
+          </div>
+
+          <div class="ladder">
+            <div class="ladder-rung r1">
+              <span class="badge badge-muted">階 1</span>
+              <div>
+                <h5>Parchment</h5>
+                <p class="b2">頁面主畫布 — 主要閱讀環境</p>
+              </div>
+            </div>
+            <div class="ladder-rung r2">
+              <span class="badge badge-muted">階 2</span>
+              <div>
+                <h5>Stone</h5>
+                <p class="b2">資料密集區段 — 表格、卡片牆</p>
+              </div>
+            </div>
+            <div class="ladder-rung r3">
+              <span class="badge" style="background: rgba(255,255,255,0.15); color: var(--t-100);">階 3</span>
+              <div>
+                <h5>Pine Olive</h5>
+                <p class="b2">品牌時刻 — CTA、宣言、招募</p>
+              </div>
+            </div>
+            <div class="ladder-rung r4">
+              <span class="badge" style="background: rgba(255,255,255,0.10); color: var(--t-200);">階 4</span>
+              <div>
+                <h5>Bark</h5>
+                <p class="b2">頁尾 / 收束 — Footer 與閉幕段</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════════════════════
+           COMPONENTS — buttons, cards, badges, links, kbd
+      ═════════════════════════════════════════════════════════════════ -->
+      <section id="components" class="band-cream">
+        <div class="container">
+          <div class="stack-3" style="margin-block-end: var(--space-8);">
+            <p class="eyebrow">元件 · Components</p>
+            <h2>按鈕、卡片、徽章 — 在每一個介面細節上保持節制。</h2>
+          </div>
+
+          <!-- Buttons -->
+          <div class="stack-4">
+            <h4>按鈕 · Buttons</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center;">
+              <button class="btn btn-primary">主要 CTA · Primary</button>
+              <button class="btn btn-secondary">次要按鈕 · Secondary</button>
+              <button class="btn btn-outline">外框 · Outline</button>
+              <button class="btn btn-ghost">幽靈 · Ghost</button>
+              <button class="btn btn-primary" disabled style="opacity: 0.5; cursor: not-allowed;">禁用 · Disabled</button>
+            </div>
+            <p class="b4">所有按鈕：8px 圓角 · 12px×20px 內距 · Pine Olive 為唯一帶彩色的主按鈕。</p>
+          </div>
+
+          <!-- Cards -->
+          <div class="stack-4" style="margin-block-start: var(--space-12);">
+            <h4>卡片 · Cards</h4>
+            <div class="features-grid">
+              <article class="card">
+                <span class="badge badge-success">
+                  <span class="badge-dot" aria-hidden="true"></span>
+                  Active
+                </span>
+                <h5>Parchment surface tokens</h5>
+                <p class="b2 muted">
+                  --bg (#f4f0ec) → --surface (#f2f1ee) → --surface-warm (#e7e0d7)。
+                  三層暖色階，黃褐底色 — 完全沒有冷灰。
+                </p>
+                <a href="./tokens.css" class="b2">查看 tokens →</a>
+              </article>
+
+              <article class="card card-elevated">
+                <span class="badge badge-muted">Featured</span>
+                <h5>Pine olive discipline</h5>
+                <p class="b2 muted">
+                  --accent (#364118) 只出現在主 CTA 和品牌時刻。Earthen tan
+                  secondary 防止整個畫面變成單一橄欖。
+                </p>
+                <a href="./DESIGN.md" class="b2">閱讀規則 →</a>
+              </article>
+
+              <article class="card card-quote">
+                <p class="display display-sm" style="font-family: 'Noto Serif TC', serif; font-weight: 500; line-height: 1.30; max-width: 22ch;">
+                  創造，時間與空間的餘裕。
+                </p>
+                <p class="b2 muted">— dacitech 品牌宣言</p>
+              </article>
+            </div>
+          </div>
+
+          <!-- Badges -->
+          <div class="stack-4" style="margin-block-start: var(--space-12);">
+            <h4>徽章 · Badges</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+              <span class="badge badge-success"><span class="badge-dot"></span>Operational</span>
+              <span class="badge badge-muted"><span class="badge-dot"></span>Idle</span>
+              <span class="badge badge-warn"><span class="badge-dot"></span>Warning</span>
+              <span class="badge badge-error"><span class="badge-dot"></span>Error</span>
+            </div>
+          </div>
+
+          <!-- Token chips -->
+          <div class="stack-4" style="margin-block-start: var(--space-12);">
+            <h4>Token chips · 設計文件用標籤</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+              <span class="token-chip"><span class="token-chip-swatch" style="background: var(--s1-900)"></span>S1-900 <code>#364118</code></span>
+              <span class="token-chip"><span class="token-chip-swatch" style="background: var(--p-900)"></span>P-900 <code>#977a5b</code></span>
+              <span class="token-chip"><span class="token-chip-swatch" style="background: var(--t-900)"></span>T-900 <code>#231815</code></span>
+              <span class="token-chip"><span class="token-chip-swatch" style="background: var(--n-700); border: 1px solid var(--border);"></span>N-700 <code>#e0dcd5</code></span>
+              <span class="token-chip"><span class="token-chip-swatch" style="background: var(--brand-bark)"></span>Bark <code>#322828</code></span>
+            </div>
+          </div>
+
+          <!-- Inline elements -->
+          <div class="stack-4" style="margin-block-start: var(--space-12);">
+            <h4>內聯元素 · Inline elements</h4>
+            <p class="b1" style="max-width: 70ch;">
+              閱讀區內常見元素：連結看起來像
+              <a href="#">這樣 (with hover olive)</a>、
+              鍵盤鍵長這樣 <kbd>⌘</kbd><kbd>K</kbd>、
+              程式碼用 <code class="inline">var(--accent)</code> 的形式呈現。
+              所有元素都遵守暖色調原則，沒有冷色入侵。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════════════════════
+           FORM — bilingual labels, olive focus, helper / error states
+      ═════════════════════════════════════════════════════════════════ -->
+      <section id="form" class="band-stone">
+        <div class="container">
+          <div class="form-row">
+            <div class="stack-4">
+              <p class="eyebrow">表單元件 · Form components</p>
+              <h2>表單也呼吸在大地色裡。</h2>
+              <p class="lead muted" style="max-width: 52ch">
+                Focus ring 用 Pine Olive 而非預設的 cool blue。每一個欄位、
+                每一個 placeholder 都保持在暖色家族，無例外。
+              </p>
+              <ul class="b1 muted" style="padding-left: var(--space-5); margin: 0;">
+                <li>欄位 — 8px 圓角，1px N-700 邊框</li>
+                <li>Focus — S1-700 邊框 + rgba(55,66,24,0.20) 外環</li>
+                <li>錯誤 — Ember (#ea5614) 邊框與輔助文字</li>
+                <li>禁用 — N-400 背景 + T-500 文字</li>
+              </ul>
+            </div>
+
+            <form class="form" onsubmit="event.preventDefault();">
+              <div class="field">
+                <label for="company">公司名稱 · Company name</label>
+                <input
+                  id="company"
+                  type="text"
+                  placeholder="例：大慈資訊有限公司"
+                  required
+                />
+                <p class="field-help">
+                  我們會將設計規範文件寄到下方信箱。
+                </p>
+              </div>
+              <div class="field">
+                <label for="email">公司信箱 · Work email</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="you@dacitech.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="email-bad">錯誤示例 · Error state</label>
+                <input
+                  id="email-bad"
+                  type="email"
+                  value="invalid-email"
+                  aria-invalid="true"
+                />
+                <p class="field-error">請輸入正確的信箱格式 · Please enter a valid email.</p>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">送出申請 · Submit</button>
+                <button type="button" class="btn btn-ghost">取消 · Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════════════════════
+           OLIVE BAND — brand moment / closing CTA
+      ═════════════════════════════════════════════════════════════════ -->
+      <section class="band-olive">
+        <div class="container" style="text-align: center;">
+          <div class="stack-6" style="max-width: 720px; margin-inline: auto;">
+            <p class="eyebrow" style="color: var(--p-300);">品牌時刻 · Brand moment</p>
+            <p class="display display-lg" style="font-family: var(--font-display);">A quieter way to think about IT.</p>
+            <p class="display display-md" style="font-family: 'Noto Serif TC', serif; font-weight: 500;">資訊的餘裕，源自一份慈心。</p>
+            <p class="lead" style="color: var(--p-300); max-width: 56ch; margin-inline: auto;">
+              dacitech 的設計系統不是為了讓畫面更吸睛，而是為了讓使用者
+              願意多停留三秒 — 然後想清楚下一步該做什麼。
+            </p>
+            <div class="hero-actions" style="justify-content: center;">
+              <a href="#contact" class="btn btn-outline">與我們聯絡 · Get in touch</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════════════════════════
+           FOOTER — bark rung, wordmark, status meta
+      ═════════════════════════════════════════════════════════════════ -->
+      <footer id="contact" class="band-bark">
+        <div class="container">
+          <div class="row-between" style="flex-wrap: wrap; gap: var(--space-8);">
+            <div class="stack-4" style="max-width: 420px;">
+              <span class="wordmark">
+                <span class="wordmark-en" style="color: var(--t-100);">dacitech</span>
+                <span class="wordmark-zh" style="color: var(--p-300);">大慈資訊</span>
+              </span>
+              <p class="b1" style="color: var(--t-300);">
+                大慈資訊有限公司 — 以耐心整合資訊，重建企業內部的秩序與餘裕。
+              </p>
+              <p class="b2" style="color: var(--meta);">
+                © 2026 dacitech · All rights reserved.
+              </p>
+            </div>
+
+            <div class="stack-3">
+              <p class="b3" style="color: var(--t-100);">設計系統 · Design system</p>
+              <a href="./DESIGN.md" class="b1" style="color: var(--t-300); text-decoration: none;">DESIGN.md — 規範文件</a><br>
+              <a href="./tokens.css" class="b1" style="color: var(--t-300); text-decoration: none;">tokens.css — 變數設定</a><br>
+              <a href="./components.html" class="b1" style="color: var(--t-300); text-decoration: none;">components.html — 此檔案</a>
+            </div>
+
+            <div class="stack-3">
+              <p class="b3" style="color: var(--t-100);">識別錨點 · Brand anchors</p>
+              <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
+                <span class="token-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.10); color: var(--t-200);">
+                  <span class="token-chip-swatch" style="background: var(--brand-pine-olive); border-color: rgba(255,255,255,0.2);"></span>
+                  Pine Olive
+                </span>
+                <span class="token-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.10); color: var(--t-200);">
+                  <span class="token-chip-swatch" style="background: var(--brand-earthen-tan); border-color: rgba(255,255,255,0.2);"></span>
+                  Earthen Tan
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
