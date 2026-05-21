@@ -29,6 +29,7 @@ import {
   checkPromptArgvBudget,
   checkWindowsCmdShimCommandLineBudget,
   checkWindowsDirectExeCommandLineBudget,
+  shouldDeliverPromptViaFile,
   detectAgents,
   getAgentDef,
   isKnownModel,
@@ -9826,13 +9827,23 @@ export async function startServer({
     }
 
     // Pre-flight the composed prompt against any argv-byte budget the
-    // adapter declared (only DeepSeek TUI today — its CLI doesn't accept
-    // a `-` stdin sentinel, so the prompt has to ride argv). Doing this
-    // before bin resolution means the test harness pins the guard
-    // independently of whether the adapter binary happens to be on PATH
-    // in the CI environment, and the user gets the actionable
-    // adapter-named error even if /api/agents hadn't refreshed yet.
-    const promptBudgetError = checkPromptArgvBudget(def, composed);
+    // adapter declared (argv-bound adapters like DeepSeek TUI and
+    // Grok Build under the inline `-p` threshold). Adapters that also
+    // declare `promptViaFile` fall back to a temp `--prompt-file` when
+    // the composed prompt exceeds the budget instead of failing here.
+    const promptFileFallback = shouldDeliverPromptViaFile(def, composed);
+    let promptFilePath: string | null = null;
+    if (promptFileFallback) {
+      promptFilePath = path.join(effectiveCwd, PROMPT_TEMP_FILE());
+      await fs.promises.writeFile(promptFilePath, composed, 'utf8');
+    }
+    const cleanupPromptFile = () => {
+      if (!promptFilePath) return;
+      void fs.promises.unlink(promptFilePath).catch(() => {});
+    };
+    const promptBudgetError = promptFileFallback
+      ? null
+      : checkPromptArgvBudget(def, composed);
     if (promptBudgetError) {
       design.runs.emit(
         run,
@@ -9858,11 +9869,14 @@ export async function startServer({
     const resolvedBin = agentLaunch.selectedPath;
 
     const args = def.buildArgs(
-      composed,
+      promptFilePath ? '' : composed,
       safeImages,
       extraAllowedDirs,
       agentOptions,
-      { cwd: effectiveCwd },
+      {
+        cwd: effectiveCwd,
+        ...(promptFilePath ? { promptFilePath } : {}),
+      },
     );
 
     // Second-pass budget check that knows about the Windows `.cmd` shim
@@ -9881,6 +9895,7 @@ export async function startServer({
       args,
     );
     if (cmdShimBudgetError) {
+      cleanupPromptFile();
       design.runs.emit(
         run,
         'error',
@@ -9908,6 +9923,7 @@ export async function startServer({
       args,
     );
     if (directExeBudgetError) {
+      cleanupPromptFile();
       design.runs.emit(
         run,
         'error',
@@ -10120,6 +10136,7 @@ export async function startServer({
         writePromptToChildStdin = true;
       }
     } catch (err) {
+      cleanupPromptFile();
       revokeToolToken('child_exit');
       unregisterChatAgentEventSink();
       send('error', createSseErrorPayload('AGENT_EXECUTION_FAILED', `spawn failed: ${err.message}`));
@@ -10554,6 +10571,7 @@ export async function startServer({
     });
 
     child.on('error', (err) => {
+      cleanupPromptFile();
       clearInactivityWatchdog();
       revokeToolToken('child_exit');
       unregisterChatAgentEventSink();
@@ -10561,6 +10579,7 @@ export async function startServer({
       design.runs.finish(run, 'failed', 1, null);
     });
     child.on('close', (code, signal) => {
+      cleanupPromptFile();
       clearInactivityWatchdog();
       revokeToolToken('child_exit');
       unregisterChatAgentEventSink();

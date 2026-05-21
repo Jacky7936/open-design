@@ -667,6 +667,7 @@ test('grok-build passes the prompt as the -p/--single value (no stdin sentinel)'
   const prompt = 'Reply with only: ok';
   const baseArgs = grokBuild.buildArgs(prompt, [], [], {});
   assert.equal(grokBuild.promptViaStdin, undefined);
+  assert.equal(grokBuild.promptViaFile, true);
   assert.deepEqual(baseArgs, ['-p', prompt]);
 
   const withModel = grokBuild.buildArgs(
@@ -681,9 +682,37 @@ test('grok-build passes the prompt as the -p/--single value (no stdin sentinel)'
     prompt,
     [],
     [],
+    { model: 'grok-4.20-reasoning', reasoning: 'high' },
+  );
+  assert.deepEqual(withEffort, ['-p', prompt, '--model', 'grok-4.20-reasoning', '--effort', 'high']);
+
+  const defaultWithEffort = grokBuild.buildArgs(
+    prompt,
+    [],
+    [],
     { reasoning: 'high' },
   );
-  assert.deepEqual(withEffort, ['-p', prompt, '--effort', 'high']);
+  assert.deepEqual(defaultWithEffort, ['-p', prompt]);
+});
+
+test('grok-build uses --prompt-file when runtimeContext carries promptFilePath', () => {
+  const prompt = 'x'.repeat(40_000);
+  const promptFilePath = '/tmp/od-grok-prompt.md';
+  const args = grokBuild.buildArgs(
+    prompt,
+    [],
+    [],
+    { model: 'grok-4.3' },
+    { promptFilePath },
+  );
+
+  assert.deepEqual(args, [
+    '--prompt-file',
+    promptFilePath,
+    '--model',
+    'grok-4.3',
+  ]);
+  assert.equal(args.includes(prompt), false);
 });
 
 test('claude helpArgs probes the -p subcommand where --add-dir lives (issue #430 root cause)', () => {

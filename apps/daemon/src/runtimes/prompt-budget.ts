@@ -16,6 +16,21 @@ function promptArgvBudgetMessage(
   );
 }
 
+export function shouldDeliverPromptViaFile(
+  def: RuntimeAgentDef | null | undefined,
+  composed: unknown,
+): { bytes: number; limit: number } | null {
+  if (!def?.promptViaFile || typeof def.maxPromptArgBytes !== 'number') {
+    return null;
+  }
+  const bytes = Buffer.byteLength(
+    typeof composed === 'string' ? composed : '',
+    'utf8',
+  );
+  if (bytes <= def.maxPromptArgBytes) return null;
+  return { bytes, limit: def.maxPromptArgBytes };
+}
+
 export function checkPromptArgvBudget(
   def: RuntimeAgentDef | null | undefined,
   composed: unknown,

@@ -18,6 +18,10 @@ export type RuntimeBuildOptions = {
 
 export type RuntimeContext = {
   cwd?: string;
+  // When set, argv-bound adapters that declare `promptViaFile` deliver
+  // the composed prompt through a temp file instead of embedding it in
+  // argv (e.g. grok `--prompt-file`).
+  promptFilePath?: string;
 };
 
 export type RuntimeCapabilityMap = Record<string, boolean>;
@@ -54,6 +58,11 @@ export type RuntimeAgentDef = {
   helpArgs?: string[];
   capabilityFlags?: Record<string, string>;
   promptViaStdin?: boolean;
+  // When true and the composed prompt exceeds `maxPromptArgBytes`, the
+  // spawn path writes the prompt to a temp file and passes its path via
+  // `runtimeContext.promptFilePath` so `buildArgs` can emit a
+  // `--prompt-file`-style flag instead of failing the budget guard.
+  promptViaFile?: boolean;
   // Format for the user prompt fed via stdin. Default is plain text (the
   // entire prompt buffer goes in raw, then stdin is closed). When set to
   // 'stream-json' the daemon writes a single JSONL line wrapping the prompt

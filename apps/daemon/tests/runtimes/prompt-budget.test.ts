@@ -1,6 +1,6 @@
 import { test } from 'vitest';
 import {
-  assert, checkPromptArgvBudget, checkWindowsCmdShimCommandLineBudget, checkWindowsDirectExeCommandLineBudget, claude, deepseek, deepseekMaxPromptArgBytes, vibe,
+  assert, checkPromptArgvBudget, checkWindowsCmdShimCommandLineBudget, checkWindowsDirectExeCommandLineBudget, claude, deepseek, deepseekMaxPromptArgBytes, grokBuild, shouldDeliverPromptViaFile, vibe,
 } from './helpers/test-helpers.js';
 import type { TestAgentDef } from './helpers/test-helpers.js';
 
@@ -32,6 +32,17 @@ test('deepseek args omit --model when model is "default"', () => {
   const args = deepseek.buildArgs('hi', [], [], { model: 'default' });
 
   assert.equal(args.includes('--model'), false);
+});
+
+test('grok-build falls back to prompt-file delivery when composed prompt exceeds argv budget', () => {
+  const oversized = 'x'.repeat(31_000);
+  assert.equal(grokBuild.promptViaFile, true);
+  assert.equal(checkPromptArgvBudget(grokBuild, oversized)?.code, 'AGENT_PROMPT_TOO_LARGE');
+  assert.deepEqual(shouldDeliverPromptViaFile(grokBuild, oversized), {
+    bytes: 31_000,
+    limit: grokBuild.maxPromptArgBytes,
+  });
+  assert.equal(shouldDeliverPromptViaFile(grokBuild, 'short prompt'), null);
 });
 
 // DeepSeek's exec mode requires the prompt as a positional argv arg

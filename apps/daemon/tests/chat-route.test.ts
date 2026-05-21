@@ -1034,6 +1034,62 @@ process.exit(1);
     );
   });
 
+  it('delivers oversized composed prompts to Grok Build via --prompt-file', async () => {
+    await withFakeAgent(
+      'grok',
+      `
+const fs = require('node:fs');
+const args = process.argv.slice(2);
+if (args.includes('--version')) {
+  console.log('grok test');
+  process.exit(0);
+}
+if (args[0] === 'models') {
+  console.log('grok-build');
+  process.exit(0);
+}
+const promptFileIdx = args.indexOf('--prompt-file');
+if (promptFileIdx >= 0) {
+  const filePath = args[promptFileIdx + 1];
+  const content = fs.readFileSync(filePath, 'utf8');
+  console.log('ok prompt-bytes:' + Buffer.byteLength(content, 'utf8'));
+  process.exit(0);
+}
+const inlineIdx = args.indexOf('-p');
+if (inlineIdx >= 0 && Buffer.byteLength(args[inlineIdx + 1] ?? '', 'utf8') > 30_000) {
+  console.error('unexpected oversized -p argv');
+  process.exit(2);
+}
+console.log('ok');
+process.exit(0);
+`,
+      async () => {
+        const createResponse = await fetch(`${baseUrl}/api/runs`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            agentId: 'grok-build',
+            message: 'hello',
+          }),
+        });
+        expect(createResponse.status).toBe(202);
+        const { runId } = await createResponse.json() as { runId: string };
+
+        const eventsController = new AbortController();
+        const eventsResponse = await fetch(`${baseUrl}/api/runs/${runId}/events`, {
+          signal: eventsController.signal,
+        });
+        const eventsBody = await readSseUntil(eventsResponse, 'event: end');
+        eventsController.abort();
+        const statusBody = await waitForRunStatus(baseUrl, runId);
+
+        expect(eventsBody).not.toContain('AGENT_PROMPT_TOO_LARGE');
+        expect(eventsBody).toMatch(/prompt-bytes:[3-9]\d{4,}/);
+        expect(statusBody.status).toBe('succeeded');
+      },
+    );
+  });
+
   it('surfaces Qoder assistant error records through the SSE error channel', async () => {
     const qoderErrorLine = JSON.stringify({
       type: 'assistant',

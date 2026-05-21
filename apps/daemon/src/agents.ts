@@ -18,6 +18,7 @@ export {
   checkPromptArgvBudget,
   checkWindowsCmdShimCommandLineBudget,
   checkWindowsDirectExeCommandLineBudget,
+  shouldDeliverPromptViaFile,
 } from './runtimes/prompt-budget.js';
 export {
   rememberLiveModels,

@@ -49,17 +49,30 @@ export const grokBuildAgentDef = {
       label: 'grok-4.20-multi-agent (xAI · orchestration)',
     },
   ],
-  // Grok Build requires the prompt as the `-p/--single` value (or via
-  // `--prompt-file`). It does not accept a bare `-p` with stdin like
-  // Claude Code. Guard oversized composed prompts before spawn — same
-  // shape as DeepSeek TUI until Grok adds a stdin sentinel or we teach
-  // the spawn path to write `--prompt-file` attachments.
-  buildArgs: (prompt, _imagePaths, _extra = [], options = {}) => {
-    const args = ['-p', prompt];
+  // Grok Build requires the prompt as the `-p/--single` value or via
+  // `--prompt-file`. It does not accept a bare `-p` with stdin like
+  // Claude Code. When the composed prompt exceeds `maxPromptArgBytes`,
+  // the spawn path writes a temp file and passes `promptFilePath` in
+  // runtimeContext so we emit `--prompt-file` instead of failing spawn.
+  promptViaFile: true,
+  buildArgs: (prompt, _imagePaths, _extra = [], options = {}, runtimeContext = {}) => {
+    const args = runtimeContext.promptFilePath
+      ? ['--prompt-file', runtimeContext.promptFilePath]
+      : ['-p', prompt];
+    const resolvedModel =
+      options.model && options.model !== DEFAULT_MODEL_OPTION.id
+        ? options.model
+        : 'grok-build';
     if (options.model && options.model !== DEFAULT_MODEL_OPTION.id) {
       args.push('--model', options.model);
     }
-    if (options.reasoning) {
+    // grok-build (including the default model) and grok-4.20-non-reasoning
+    // reject reasoningEffort on the xAI responses API; only pass --effort
+    // for models that advertise reasoning support.
+    const supportsEffort =
+      resolvedModel !== 'grok-build' &&
+      resolvedModel !== 'grok-4.20-non-reasoning';
+    if (options.reasoning && supportsEffort) {
       args.push('--effort', options.reasoning);
     }
     return args;
