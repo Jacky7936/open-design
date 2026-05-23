@@ -785,6 +785,7 @@ export const uk: Dict = {
   'chat.new': 'Нова',
   'chat.emptyConversations': 'Розмов ще немає.',
   'chat.deleteConversation': 'Видалити розмову',
+  'chat.renameConversationLabel': 'Перейменувати "{title}"',
   'chat.deleteConversationConfirm':
     'Видалити "{title}"? Це видалить усі її повідомлення.',
   'chat.untitledConversation': 'Розмова без назви',
@@ -919,6 +920,8 @@ export const uk: Dict = {
   'designFiles.kindPresentation': 'Презентація',
   'designFiles.kindSpreadsheet': 'Електронна таблиця',
   'designFiles.kindBinary': 'Двійковий',
+  'designFiles.kindFolder': 'Папка',
+  'designFiles.folderCount': '{n} файлів',
   'designFiles.colName': 'Назва',
   'designFiles.colKind': 'Тип',
   'designFiles.colModified': 'Змінено',

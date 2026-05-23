@@ -785,6 +785,7 @@ export const fa: Dict = {
   'chat.new': 'جدید',
   'chat.emptyConversations': 'هنوز هیچ مکالمه‌ای وجود ندارد.',
   'chat.deleteConversation': 'حذف مکالمه',
+  'chat.renameConversationLabel': 'تغییر نام «{title}»',
   'chat.deleteConversationConfirm':
     'آیا «{title}» حذف شود؟ این کار پیام‌های آن را حذف می‌کند.',
   'chat.untitledConversation': 'مکالمه بدون عنوان',
@@ -919,6 +920,8 @@ export const fa: Dict = {
   'designFiles.kindSpreadsheet': 'صفحه گسترده',
   'designFiles.kindLiveArtifact': 'مصنوع زنده',
   'designFiles.kindBinary': 'باینری',
+  'designFiles.kindFolder': 'پوشه',
+  'designFiles.folderCount': '{n} فایل',
   'designFiles.colName': 'نام',
   'designFiles.colKind': 'نوع',
   'designFiles.colModified': 'تغییر یافته',

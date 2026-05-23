@@ -763,6 +763,7 @@ export const pl: Dict = {
   'chat.new': 'Nowa',
   'chat.emptyConversations': 'Brak rozmów.',
   'chat.deleteConversation': 'Usuń rozmowę',
+  'chat.renameConversationLabel': 'Zmień nazwę „{title}”',
   'chat.deleteConversationConfirm':
       'Usunąć „{title}”? Spowoduje to usunięcie wszystkich wiadomości.',
   'chat.untitledConversation': 'Rozmowa bez tytułu',
@@ -895,6 +896,8 @@ export const pl: Dict = {
   'designFiles.kindPresentation': 'Prezentacja',
   'designFiles.kindSpreadsheet': 'Arkusz kalkulacyjny',
   'designFiles.kindBinary': 'Plik binarny',
+  'designFiles.kindFolder': 'Folder',
+  'designFiles.folderCount': '{n} plików',
   'designFiles.colName': 'Nazwa',
   'designFiles.colKind': 'Rodzaj',
   'designFiles.colModified': 'Zmodyfikowano',

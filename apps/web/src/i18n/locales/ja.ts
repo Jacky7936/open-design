@@ -650,6 +650,7 @@ export const ja: Dict = {
   'chat.new': '新規',
   'chat.emptyConversations': 'まだ会話がありません。',
   'chat.deleteConversation': '会話を削除',
+  'chat.renameConversationLabel': '「{title}」の名前を変更',
   'chat.deleteConversationConfirm':
     '"{title}" を削除しますか？メッセージも削除されます。',
   'chat.untitledConversation': '無題の会話',
@@ -782,6 +783,8 @@ export const ja: Dict = {
   'designFiles.kindPresentation': 'プレゼンテーション',
   'designFiles.kindSpreadsheet': 'スプレッドシート',
   'designFiles.kindBinary': 'バイナリ',
+  'designFiles.kindFolder': 'フォルダ',
+  'designFiles.folderCount': '{n} ファイル',
   'designFiles.colName': '名前',
   'designFiles.colKind': '種類',
   'designFiles.colModified': '更新日',

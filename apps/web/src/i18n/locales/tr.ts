@@ -752,6 +752,7 @@ export const tr: Dict = {
   'chat.new': 'Yeni',
   'chat.emptyConversations': 'Henüz konuşma yok.',
   'chat.deleteConversation': 'Konuşmayı sil',
+  'chat.renameConversationLabel': '"{title}" adını değiştir',
   'chat.deleteConversationConfirm':
     '"{title}"’ı sil? Bu mesajları silecektir.',
   'chat.untitledConversation': 'Başlıksız konuşma',
@@ -882,6 +883,8 @@ export const tr: Dict = {
   'designFiles.kindPresentation': 'Sunum',
   'designFiles.kindSpreadsheet': 'Elektronik tablo',
   'designFiles.kindBinary': 'Binary',
+  'designFiles.kindFolder': 'Klasör',
+  'designFiles.folderCount': '{n} dosya',
   'designFiles.colName': 'Ad',
   'designFiles.colKind': 'Tür',
   'designFiles.colModified': 'Değiştirilme',

@@ -784,6 +784,7 @@ export const ptBR: Dict = {
   'chat.new': 'Nova',
   'chat.emptyConversations': 'Ainda não há conversas.',
   'chat.deleteConversation': 'Excluir conversa',
+  'chat.renameConversationLabel': 'Renomear "{title}"',
   'chat.deleteConversationConfirm':
     'Excluir "{title}"? Isso remove as mensagens.',
   'chat.untitledConversation': 'Conversa sem título',
@@ -918,6 +919,8 @@ export const ptBR: Dict = {
   'designFiles.kindSpreadsheet': 'Planilha',
   'designFiles.kindLiveArtifact': 'Artefato live',
   'designFiles.kindBinary': 'Binário',
+  'designFiles.kindFolder': 'Pasta',
+  'designFiles.folderCount': '{n} arquivos',
   'designFiles.colName': 'Nome',
   'designFiles.colKind': 'Tipo',
   'designFiles.colModified': 'Modificado',

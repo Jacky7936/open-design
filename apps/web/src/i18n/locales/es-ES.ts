@@ -652,6 +652,7 @@ export const esES: Dict = {
   'chat.new': 'Nueva',
   'chat.emptyConversations': 'Aún no hay conversaciones.',
   'chat.deleteConversation': 'Eliminar conversación',
+  'chat.renameConversationLabel': 'Renombrar «{title}»',
   'chat.deleteConversationConfirm':
     '¿Eliminar «{title}»? Se borrarán sus mensajes.',
   'chat.untitledConversation': 'Conversación sin título',
@@ -784,6 +785,8 @@ export const esES: Dict = {
   'designFiles.kindPresentation': 'Presentación',
   'designFiles.kindSpreadsheet': 'Hoja de cálculo',
   'designFiles.kindBinary': 'Binario',
+  'designFiles.kindFolder': 'Carpeta',
+  'designFiles.folderCount': '{n} archivos',
   'designFiles.colName': 'Nombre',
   'designFiles.colKind': 'Tipo',
   'designFiles.colModified': 'Modificado',

@@ -4859,6 +4859,9 @@ function HtmlViewer({
       setSource(result.source);
       sourceRef.current = result.source;
       setInlinedSource(null);
+      if (patch.kind !== 'set-style') {
+        setManualEditFrozenSource(result.source);
+      }
       setManualEditHistory((current) => [entry, ...current]);
       setManualEditUndone([]);
       setManualEditDraft((current) => ({ ...current, fullSource: result.source }));
@@ -4912,6 +4915,7 @@ function HtmlViewer({
       setSource(latest.beforeSource);
       sourceRef.current = latest.beforeSource;
       setInlinedSource(null);
+      setManualEditFrozenSource(latest.beforeSource);
       setManualEditHistory(rest);
       setManualEditUndone((current) => [latest, ...current]);
       setManualEditDraft((current) => ({ ...current, fullSource: latest.beforeSource }));
@@ -4943,6 +4947,7 @@ function HtmlViewer({
       setSource(latest.afterSource);
       sourceRef.current = latest.afterSource;
       setInlinedSource(null);
+      setManualEditFrozenSource(latest.afterSource);
       setManualEditUndone(rest);
       setManualEditHistory((current) => [latest, ...current]);
       setManualEditDraft((current) => ({ ...current, fullSource: latest.afterSource }));
@@ -6318,6 +6323,11 @@ function HtmlViewer({
                       onLoad={() => {
                         const frame = srcDocPreviewIframeRef.current;
                         if (!useUrlLoadPreview) iframeRef.current = frame;
+                        // Any srcDoc iframe load means we are talking to a
+                        // fresh document shell. Clear the activation dedupe so
+                        // switching preview -> source -> preview cannot strand
+                        // the new shell on the blank transport page.
+                        activatedSrcDocTransportHtmlRef.current = null;
                         // Belt-and-suspenders for the ready handshake: if the
                         // postMessage racing the parent's listener registration
                         // ever loses, the load event still tells us the shell
